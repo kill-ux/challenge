@@ -1,13 +1,24 @@
 #!/bin/bash
+#!/bin/bash
 set -e
 
 apt-get update -qq
-apt-get install -y nmap netcat-openbsd john ruby ruby-dev build-essential
+apt-get install -y \
+  nmap \
+  netcat-openbsd \
+  john \
+  ruby \
+  ruby-dev \
+  build-essential \
+  ftp \
+  arp-scan
 
 gem install zsteg chunky_png
 
 # extract rockyou if needed
-gunzip /usr/share/wordlists/rockyou.txt.gz 2>/dev/null || true
+mkdir -p /usr/share/wordlists
+curl -L https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt \
+  -o /usr/share/wordlists/rockyou.txt
 
 echo "=============================="
 echo "Attacker ready!"
